@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitação de Livro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1,
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #0072ff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+
+        .result {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="form">
+            <h1>Solicitação de Livro</h1>
+            <input type="text" id="username" placeholder="Digite seu nome">
+            <input type="text" id="bookTitle" placeholder="Título do Livro">
+            <input type="text" id="bookAuthor" placeholder="Autor do Livro">
+            <input type="number" id="bookYear" placeholder="Ano de Publicação">
+            <input type="text" id="bookId" placeholder="ID do Livro">
+            <button onclick="submitForm()">Solicitar</button>
+        </div>
+
+        <div class="result">
+            <h2>Solicitação iniciada!</h2>
+            <p id="userInfo"></p>
+            <p id="bookInfo"></p>
+            <p>"Se vira Back end, eu já fiz minha função. Beijos... FRONT :*"</p>
+        </div>
+    </div>
+
+    <script>
+        function submitForm() {
+            const username = document.getElementById('username').value;
+            const bookTitle = document.getElementById('bookTitle').value;
+            const bookAuthor = document.getElementById('bookAuthor').value;
+            const bookYear = document.getElementById('bookYear').value;
+            const bookId = document.getElementById('bookId').value;
+
+            document.getElementById('userInfo').textContent = `Back-end se liga na requisição do: , ${username}!`;
+            document.getElementById('bookInfo').textContent = `Ele pediu o livro: "${bookTitle}", de ${bookAuthor} (${bookYear}), ID: ${bookId}.`;
+
+            document.querySelector('.form').style.display = 'none';
+            document.querySelector('.result').style.display = 'block';
+        }
+    </script>
+
+</body>
+
+</html>
