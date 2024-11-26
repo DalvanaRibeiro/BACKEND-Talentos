@@ -1,0 +1,84 @@
+-- Criando a tabela de usuários
+CREATE TABLE usuarios (
+    id SERIAL PRIMARY KEY, -- A coluna 'id' será única e auto-incrementada
+    nome VARCHAR(100) NOT NULL, -- O nome do usuário é obrigatório, com até 100 caracteres
+    email VARCHAR(100) UNIQUE NOT NULL, -- O email é único e obrigatório, com até 100 caracteres
+    senha VARCHAR(255) NOT NULL, -- A senha é obrigatória, com até 255 caracteres (armazenar de forma segura)
+    data_nascimento DATE NOT NULL, -- A data de nascimento do usuário, obrigatória
+    cidade VARCHAR(100), -- A cidade do usuário, não obrigatória
+    foto_url VARCHAR(255), -- A URL da foto de perfil, não obrigatória
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL -- A data de criação é obrigatória, com o valor atual por padrão
+);
+
+-- Criando a tabela de postagens
+CREATE TABLE postagens (
+    id SERIAL PRIMARY KEY, -- A coluna 'id' será única e auto-incrementada
+    id_usuario INT NOT NULL, -- O 'id_usuario' é obrigatório, relacionando com a tabela 'usuarios'
+    conteudo TEXT NOT NULL, -- O conteúdo da postagem é obrigatório
+    imagem_url VARCHAR(255), -- URL da imagem, não obrigatória
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, -- Data de criação da postagem, com o valor atual por padrão
+    privacidade VARCHAR(10) CHECK (privacidade IN ('publico', 'privado', 'amigos')) NOT NULL, -- Privacidade da postagem, com valores possíveis: 'publico', 'privado', 'amigos'
+    
+    -- Definindo o relacionamento entre postagens e usuários
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id) -- Relacionando 'id_usuario' à coluna 'id' da tabela 'usuarios'
+);
+
+-- Criando a tabela de comentários
+CREATE TABLE comentarios (
+    id SERIAL PRIMARY KEY, -- A coluna 'id' será única e auto-incrementada
+    id_postagem INT NOT NULL, -- 'id_postagem' é obrigatório, referenciando a tabela 'postagens'
+    id_usuario INT NOT NULL, -- 'id_usuario' é obrigatório, referenciando a tabela 'usuarios'
+    comentario TEXT NOT NULL, -- O comentário é obrigatório
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, -- A data de criação do comentário, com o valor atual por padrão
+    
+    -- Relacionando 'id_postagem' à tabela 'postagens'
+    FOREIGN KEY (id_postagem) REFERENCES postagens(id), 
+    
+    -- Relacionando 'id_usuario' à tabela 'usuarios'
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+);
+
+-- Criando a tabela de curtidas
+CREATE TABLE curtidas (
+    id SERIAL PRIMARY KEY, -- A coluna 'id' será única e auto-incrementada
+    id_postagem INT NOT NULL, -- 'id_postagem' é obrigatório, referenciando a tabela 'postagens'
+    id_usuario INT NOT NULL, -- 'id_usuario' é obrigatório, referenciando a tabela 'usuarios'
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, -- A data de criação da curtida, com o valor atual por padrão
+    
+    -- Relacionando 'id_postagem' à tabela 'postagens'
+    FOREIGN KEY (id_postagem) REFERENCES postagens(id), 
+    
+    -- Relacionando 'id_usuario' à tabela 'usuarios'
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+);
+
+-- Criando a tabela de amizades
+CREATE TABLE amizades (
+    id SERIAL PRIMARY KEY, -- A coluna 'id' será única e auto-incrementada
+    id_usuario1 INT NOT NULL, -- 'id_usuario1' é obrigatório, referenciando a tabela 'usuarios'
+    id_usuario2 INT NOT NULL, -- 'id_usuario2' é obrigatório, referenciando a tabela 'usuarios'
+    status VARCHAR(10) CHECK (status IN ('solicitado', 'aceito', 'recusado')) NOT NULL, -- Status da amizade, podendo ser 'solicitado', 'aceito', ou 'recusado'
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, -- Data de criação da amizade, com o valor atual por padrão
+    
+    -- Relacionando 'id_usuario1' e 'id_usuario2' à tabela 'usuarios'
+    FOREIGN KEY (id_usuario1) REFERENCES usuarios(id), 
+    FOREIGN KEY (id_usuario2) REFERENCES usuarios(id),
+    
+    -- Garantindo que não haverá amizades duplicadas entre dois usuários (ambos os sentidos são iguais)
+    CONSTRAINT unique_amizade UNIQUE (id_usuario1, id_usuario2)
+);
+
+-- Criando a tabela de mensagens
+CREATE TABLE mensagens (
+    id SERIAL PRIMARY KEY, -- A coluna 'id' será única e auto-incrementada
+    id_remetente INT NOT NULL, -- 'id_remetente' é obrigatório, referenciando a tabela 'usuarios'
+    id_destinatario INT NOT NULL, -- 'id_destinatario' é obrigatório, referenciando a tabela 'usuarios'
+    conteudo TEXT NOT NULL, -- O conteúdo da mensagem é obrigatório
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, -- A data de criação da mensagem, com o valor atual por padrão
+    
+    -- Relacionando 'id_remetente' à tabela 'usuarios'
+    FOREIGN KEY (id_remetente) REFERENCES usuarios(id),
+    
+    -- Relacionando 'id_destinatario' à tabela 'usuarios'
+    FOREIGN KEY (id_destinatario) REFERENCES usuarios(id)
+);
