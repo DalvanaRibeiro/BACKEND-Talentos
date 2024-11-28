@@ -1,6 +1,6 @@
 -- Criando o banco de dados onde armazenaremos todas as informações
-CREATE DATABASE GerenciamentoCelulares; -- Nome do banco de dados
-USE GerenciamentoCelulares; -- Selecionando o banco de dados para trabalhar
+CREATE DATABASE GerenciamentoCelulares_senac; -- Nome do banco de dados
+USE GerenciamentoCelulares_senac; -- Selecionando o banco de dados para trabalhar
 
 -- Criando a tabela 'donos' para armazenar os dados pessoais dos donos
 CREATE TABLE donos (
@@ -48,7 +48,7 @@ SELECT
 FROM donos d                            -- Tabela 'donos', abreviada como 'd'
 LEFT JOIN celulares c                   -- Junta 'donos' com 'celulares' usando LEFT JOIN
 ON d.id_dono = c.id_dono                -- Relaciona as tabelas com base no campo 'id_dono'
-ORDER BY d.nome;    gerenciandocelularesdonocelular1                    -- Ordena os resultados pelo nome do dono
+ORDER BY d.nome;                        -- Ordena os resultados pelo nome do dono
 
 -- Consultando quantos celulares cada dono possui
 SELECT 
@@ -59,4 +59,3 @@ LEFT JOIN celulares c                  -- Junta 'donos' com 'celulares'
 ON d.id_dono = c.id_dono               -- Relaciona as tabelas com base no campo 'id_dono'
 GROUP BY d.id_dono                     -- Agrupa os resultados por cada dono
 ORDER BY TotalCelulares DESC;          -- Ordena pelos donos com mais celulares primeiro
-
