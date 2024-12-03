@@ -8,6 +8,8 @@
 
 # Link aula 4 (modelagem com HEIDI): https://www.canva.com/design/DAGXhY3h6JY/4ZUFgO88aZ-uEL7sLn2G9Q/view?utm_content=DAGXhY3h6JY&utm_campaign=designshare&utm_medium=link&utm_source=editor
 
+# Link aula 5 (MongoDB e Operadores): https://www.canva.com/design/DAGXg2XNjuU/HFF7oDoF5T81aJKO7VseCw/edit?utm_content=DAGXg2XNjuU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
 # DataSets Kaggle 
 
 ## Vendas de Loja: https://www.kaggle.com/datasets/indiella/store-sales-json
