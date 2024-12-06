@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.1",
+    "express": "^4.21.2",
     "node-2": "file:",
     "uuid": "^11.0.2"
   }
